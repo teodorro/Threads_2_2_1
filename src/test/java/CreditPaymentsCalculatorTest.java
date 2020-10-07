@@ -2,7 +2,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class CreditPaymentsCalculatorTest {
-
     // region getMonthPayment
 
     @Test(expected = IllegalArgumentException.class)
@@ -11,8 +10,8 @@ public class CreditPaymentsCalculatorTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getMonthPayment_InterestRateBetween0And1(){
-        new CreditPaymentsCalculator().getMonthPayment(300_000, 12, 18);
+    public void getMonthPayment_InterestRateBetweenOverZero(){
+        new CreditPaymentsCalculator().getMonthPayment(300_000, 0, 18);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -22,9 +21,9 @@ public class CreditPaymentsCalculatorTest {
 
     @Test
     public void getMonthPayment_Ok(){
-        double res = new CreditPaymentsCalculator().getMonthPayment(300_000, 0.15, 18);
+        int res = new CreditPaymentsCalculator().getMonthPayment(300_000, 0.15, 18);
 
-        Assert.assertTrue(Math.abs(res - 18715.44) < 0.01);
+        Assert.assertEquals(18_715, res);
     }
 
     // endregion getMonthPayment
@@ -37,8 +36,8 @@ public class CreditPaymentsCalculatorTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getTotalSum_InterestRateBetween0And1(){
-        new CreditPaymentsCalculator().getTotalSum(300_000, 12, 18);
+    public void getTotalSum_InterestRateBetweenOverZero(){
+        new CreditPaymentsCalculator().getTotalSum(300_000, 0, 18);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -48,9 +47,9 @@ public class CreditPaymentsCalculatorTest {
 
     @Test
     public void getTotalSum_Ok(){
-        double res = new CreditPaymentsCalculator().getTotalSum(300_000, 0.15, 18);
+        int res = new CreditPaymentsCalculator().getTotalSum(300_000, 0.15, 18);
 
-        Assert.assertTrue(Math.abs(res - 336_855.98) < 0.01);
+        Assert.assertEquals(336_870, res);
     }
 
     // endregion getTotalSum
@@ -63,8 +62,8 @@ public class CreditPaymentsCalculatorTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getTotalInterest_InterestRateBetween0And1(){
-        new CreditPaymentsCalculator().getTotalInterest(300_000, 12, 18);
+    public void getTotalInterest_InterestRateBetweenOverZero(){
+        new CreditPaymentsCalculator().getTotalInterest(300_000, 0, 18);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -74,11 +73,10 @@ public class CreditPaymentsCalculatorTest {
 
     @Test
     public void getTotalInterest_Ok(){
-        double res = new CreditPaymentsCalculator().getTotalInterest(300_000, 0.15, 18);
+        int res = new CreditPaymentsCalculator().getTotalInterest(300_000, 0.15, 18);
 
-        Assert.assertTrue(Math.abs(res - 36_855.98) < 0.01);
+        Assert.assertEquals(36_870, res);
     }
 
     // endregion getTotalInterest
-
 }
